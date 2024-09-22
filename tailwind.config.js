@@ -6,7 +6,16 @@ module.exports = {
   ],
   content: [],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        theme: '#479478',
+        yellow: '#F56E0D',
+        hui: '#798196'
+      },
+      maxWidth: {
+        page: '1288px'
+      }
+    }
   },
   plugins: []
 }

@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import Buy from '@/components/buy/index.vue'
+</script>
 <template>
   <div>
     <!-- 导航 -->
@@ -536,5 +538,6 @@
 
       <span>© 2024 FloMuse. All rights reserved.</span>
     </div>
+    <Buy></Buy>
   </div>
 </template>

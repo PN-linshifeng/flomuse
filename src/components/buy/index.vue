@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import PayCode from './code.vue'
 const active = ref('b')
 const select = ref<'月' | '季' | '年'>('季')
 const beihe = ref<10 | 110 | 1100 | 11100>(1100)
@@ -88,7 +89,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
           </div>
           <div class="flex-1">
             <div
-              class="flex gap-7 text-base text-center text-black *:flex-1 *:flex *:justify-center *:flex-col *:border *:rounded-xl *:h-[174px] *:cursor-pointer *:relative"
+              class="flex gap-7 mb-8 text-base text-center text-black *:flex-1 *:flex *:justify-center *:flex-col *:border *:rounded-xl *:h-[174px] *:cursor-pointer *:relative"
             >
               <div
                 class="*:my-2"
@@ -166,7 +167,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
               </div>
             </div>
             <!-- 二维码 -->
-            <div class="px-4 py-7 text-center bg-[#F5F5F5] mt-8 rounded-[32px] text-base">
+            <!-- <div class="px-4 py-7 text-center bg-[#F5F5F5] mt-8 rounded-[32px] text-base">
               <div class="mb-7">应付金额：<span class="text-yellow">0</span> 元</div>
               <div class="flex justify-center px-20 *:flex-1">
                 <div>
@@ -207,12 +208,13 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
                   >《会员详细规则》</a
                 >
               </div>
-            </div>
+            </div> -->
+            <PayCode></PayCode>
           </div>
         </div>
         <!-- 贝壳充值 -->
         <div class="relative" v-show="active === 'b'" key="b">
-          <div class="absolute translate-y-[-150%] text-lg mb-10">
+          <div class="absolute translate-y-[-200%] text-lg mb-10">
             灵活充值，按需购买，让您的每一笔花费都物有所值
           </div>
           <div
@@ -304,8 +306,8 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
               </div>
             </div>
           </div>
-          <div class="flex mt-8 mr-16">
-            <div class="w-[300px]">
+          <div class="flex mt-8">
+            <div class="w-[300px] mr-16">
               <div class="text-[22px] mb-5"><span class="text-yellow">常见问题</span>解答：</div>
               <div class="text-base *:flex *:items-center *:mb-8">
                 <div class="">贝壳是否有有效期？</div>
@@ -314,48 +316,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
               </div>
             </div>
             <!-- 二维码 -->
-            <div class="flex-1 px-4 py-7 text-center bg-[#F5F5F5] rounded-[32px] text-base">
-              <div class="mb-7">应付金额：<span class="text-yellow">0</span> 元</div>
-              <div class="flex justify-center px-20 *:flex-1">
-                <div>
-                  <div class="flex justify-center">
-                    <div class="border border-[#48B338] p-2 mb-4 w-[120px] h-[120px] rounded-xl">
-                      <img src="@/assets/images/code.png" alt="" srcset="" />
-                    </div>
-                  </div>
-                  <div class="flex items-center w-full justify-center">
-                    <img
-                      src="@/assets/images/wxp.png"
-                      class="size-5 mr-2"
-                      alt=""
-                      srcset=""
-                    />微信支付
-                  </div>
-                </div>
-                <div>
-                  <div class="flex justify-center">
-                    <div class="border border-[#2EA7E0] p-2 mb-4 w-[120px] h-[120px] rounded-xl">
-                      <img src="@/assets/images/code.png" alt="" srcset="" />
-                    </div>
-                  </div>
-                  <div class="flex items-center w-full justify-center">
-                    <img
-                      src="@/assets/images/zyp.png"
-                      class="size-5 mr-2"
-                      alt=""
-                      srcset=""
-                    />微信支付
-                  </div>
-                </div>
-              </div>
-              <div class="mt-10">
-                支付即视为同意并阅读<a href="#" class="text-black">《会员服务协议》</a>和<a
-                  href="#"
-                  class="text-black"
-                  >《会员详细规则》</a
-                >
-              </div>
-            </div>
+            <PayCode></PayCode>
           </div>
         </div>
       </div>

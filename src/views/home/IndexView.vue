@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import Buy from '@/components/buy/index.vue'
+const visibleBuy = ref(true)
 </script>
 <template>
   <div>
@@ -538,6 +540,6 @@ import Buy from '@/components/buy/index.vue'
 
       <span>© 2024 FloMuse. All rights reserved.</span>
     </div>
-    <Buy></Buy>
+    <Buy v-if="visibleBuy"></Buy>
   </div>
 </template>

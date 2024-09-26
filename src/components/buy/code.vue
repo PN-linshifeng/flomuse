@@ -4,7 +4,7 @@
     <div class="flex justify-center px-20 *:flex-1">
       <div>
         <div class="flex justify-center">
-          <div class="border border-[#48B338] p-2 mb-4 w-[120px] h-[120px] rounded-xl">
+          <div class="border border-[#48B338] p-2 mb-4 w-[120px] h-[120px] rounded-xl bg-white">
             <img src="@/assets/images/code.png" alt="" srcset="" />
           </div>
         </div>
@@ -14,7 +14,7 @@
       </div>
       <div>
         <div class="flex justify-center">
-          <div class="border border-[#2EA7E0] p-2 mb-4 w-[120px] h-[120px] rounded-xl">
+          <div class="border border-[#2EA7E0] p-2 mb-4 w-[120px] h-[120px] rounded-xl bg-white">
             <img src="@/assets/images/code.png" alt="" srcset="" />
           </div>
         </div>

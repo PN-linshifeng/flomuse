@@ -7,7 +7,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
 </script>
 <template>
   <div
-    class="absolute left-[-1px] right-0 top-[-1px] w-[100vw] h-[100vh] overflow-hidden flex items-center justify-center"
+    class="fixed z-50 left-[-1px] right-0 top-[-1px] w-[100vw] h-[100vh] overflow-hidden flex items-center justify-center"
   >
     <div
       class="w-[1200px] rounded-[30px] bg-theme overflow-hidden shadow-2xl"

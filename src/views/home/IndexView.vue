@@ -1,32 +1,64 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Buy from '@/components/buy/index.vue'
-const visibleBuy = ref(true)
+const visibleBuy = ref(false)
+const bannerRef = ref<HTMLDivElement>()
+const aboutRef = ref<HTMLDivElement>()
+const serveRef = ref<HTMLDivElement>()
+const buyRef = ref<HTMLDivElement>()
+const pageId = ref('banner')
+
+let lastSeen = null
+function highlightSection(section) {
+  if (lastSeen) {
+    lastSeen.classList.remove('highlighted')
+  }
+  lastSeen = section
+  lastSeen.classList.add('highlighted')
+  pageId.value = section.id
+}
+const scroll = (e) => {
+  const sections = document.querySelectorAll('.page')
+  for (var i = 0; i < sections.length; i++) {
+    var section = sections[i]
+    if (section.getBoundingClientRect().top >= section.clientHeight / -2) {
+      highlightSection(section)
+      break // Stop checking after the first visible section
+    }
+  }
+}
+function go(dom) {
+  const _top = dom.getBoundingClientRect().top
+  const screenY = window.screenY
+  console.log(window.scrollY + _top)
+  window.scrollTo({ top: window.scrollY + _top, behavior: 'smooth' })
+}
+onMounted(() => {
+  window.addEventListener('scroll', scroll)
+})
 </script>
 <template>
-  <div>
+  <div class="min-w-[1200px]">
     <!-- 导航 -->
     <div class="max-w-page w-full fixed left-[50%] translate-x-[-50%] top-10 px-4">
       <div
         class="h-[70px] border border-black bg-white w-full rounded-full flex items-center justify-center shadow-[4px_5px_0px_0px_#121212]"
       >
         <div
-          class="text-[#c1c1c1] max-w-[1580px] h-[50px] p-[5px] leading-[40px] rounded-full bg-[#f1f1f1] flex text-center"
+          class="text-[#c1c1c1] max-w-[1580px] h-[50px] p-[5px] leading-[40px] rounded-full bg-[#f1f1f1] flex gap-1 text-center *:transition-all *:w-[135px] *:cursor-pointer *:rounded-full hover:*:bg-[#b1dccc] hover:*:text-black"
         >
           <span
-            class="transition-all w-[135px] cursor-pointer rounded-full hover:bg-[#b1dccc] hover:text-black"
+            :class="pageId === 'banner' ? ' bg-[#b1dccc] text-black' : ''"
+            @click="go(bannerRef)"
             >旋律生成</span
           >
-          <span
-            class="transition-all w-[135px] cursor-pointer rounded-full hover:bg-[#b1dccc] hover:text-black"
+          <span :class="pageId === 'about' ? ' bg-[#b1dccc] text-black' : ''" @click="go(aboutRef)"
             >关于我们</span
           >
-          <span
-            class="transition-all w-[135px] cursor-pointer rounded-full hover:bg-[#b1dccc] hover:text-black"
+          <span :class="pageId === 'serve' ? ' bg-[#b1dccc] text-black' : ''" @click="go(serveRef)"
             >服务介绍</span
           >
-          <span
-            class="transition-all w-[135px] cursor-pointer rounded-full hover:bg-[#b1dccc] hover:text-black"
+          <span :class="pageId === 'buy' ? ' bg-[#b1dccc] text-black' : ''" @click="go(buyRef)"
             >订阅方案</span
           >
         </div>
@@ -34,7 +66,9 @@ const visibleBuy = ref(true)
     </div>
     <!-- 旋律生成 -->
     <div
-      class="w-full h-[100vh] flex items-center flex-col text-center justify-center bg-[#FEF8EF] bg-[url('@/assets/images/banner-bg.png')] bg-cover"
+      ref="bannerRef"
+      id="banner"
+      class="page w-full h-[100vh] flex items-center flex-col text-center justify-center bg-[#FEF8EF] bg-[url('@/assets/images/banner-bg.png')] bg-cover"
     >
       <div class="text-[32px] font-bold mb-[42px] text-theme leading-[60px]">
         “探索音乐的无限可能，一键生成属于您的个性化视唱旋律！” <br />
@@ -49,7 +83,7 @@ const visibleBuy = ref(true)
     </div>
 
     <!-- 关于我们 -->
-    <div class="max-w-page py-20 px-4 mx-auto">
+    <div ref="aboutRef" id="about" class="page max-w-page py-20 px-4 mx-auto">
       <div class="text-[40px] text-center mb-16 text-black">复音科技，智启音乐教育未来</div>
       <div class="leading-6 *:mb-4">
         <p class="mb-4">
@@ -107,8 +141,8 @@ const visibleBuy = ref(true)
     </div>
 
     <!-- 服务介绍 -->
-    <div class="w-full bg-[#FEF8EF]">
-      <div class="max-w-page mx-auto py-10">
+    <div ref="serveRef" id="serve" class="page w-full bg-[#FEF8EF]">
+      <div class="max-w-page mx-auto py-10 px-4">
         <div class="text-[40px] text-center mb-16 text-black">复音科技，智启音乐教育未来</div>
         <div class="flex justify-between">
           <div class="w-[300px]">
@@ -143,8 +177,12 @@ const visibleBuy = ref(true)
     </div>
 
     <!-- 订阅方案 -->
-    <div class="w-full bg-[#cdede1] bg-[url('@/assets/images/footer-bg.png')] bg-cover py-[80px]">
-      <div class="max-w-page mx-auto">
+    <div
+      ref="buyRef"
+      id="buy"
+      class="page w-full bg-[#cdede1] bg-[url('@/assets/images/footer-bg.png')] bg-cover py-[80px]"
+    >
+      <div class="max-w-page mx-auto px-4">
         <div class="text-[40px] text-center mb-16 text-black">订阅方案</div>
         <div
           class="flex *:transition-all hover:*:shadow-lg *:flex-1 gap-5 *:flex *:flex-col *:justify-between *:h-[500px] *:rounded-2xl *:bg-white *:pb-7"

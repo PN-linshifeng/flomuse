@@ -10,7 +10,9 @@ module.exports = {
       colors: {
         theme: '#479478',
         yellow: '#F56E0D',
-        hui: '#798196'
+        hui: '#798196',
+        green: '#b1dccc',
+        'green-10': '#E0F1EB'
       },
       maxWidth: {
         page: '1288px'

@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { BuyType } from '@/types'
 import PayCode from './code.vue'
-const active = ref('b')
+const props = defineProps<{ buyType: BuyType }>()
+const active = ref(props.buyType)
 const select = ref<'月' | '季' | '年'>('季')
 const beihe = ref<10 | 110 | 1100 | 11100>(1100)
 </script>
@@ -39,7 +41,11 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
       <div class="h-[90px] leading-[90px] relative overflow-hidden">
         <div class="w-full h-[80px] absolute top-[10px] bg-[#B1DCCC] rounded-t-[30px]"></div>
         <div class="flex text-[#06452E] *:flex-1 *:relative *:z-10 *:text-center">
-          <div class="" :class="active === 'a' ? 'active' : ''" @click="active = 'a'">
+          <div
+            class=""
+            :class="active === '订阅制会员' ? 'active' : ''"
+            @click="active = '订阅制会员'"
+          >
             <div class="text-2xl leading-[100px] cursor-pointer">订阅制会员</div>
             <div class="left">
               <div class="tabs"></div>
@@ -48,7 +54,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
               <div class="tabs"></div>
             </div>
           </div>
-          <div :class="active === 'b' ? 'active' : ''" @click="active = 'b'">
+          <div :class="active === '贝壳充值' ? 'active' : ''" @click="active = '贝壳充值'">
             <div class="text-2xl leading-[100px] cursor-pointer">贝壳充值</div>
             <div class="left">
               <div class="tabs"></div>
@@ -61,7 +67,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
       </div>
       <div class="bg-white pb-6 pt-[70px] px-12">
         <!-- 订阅制会员 -->
-        <div class="flex" v-show="active === 'a'" key="a">
+        <div class="flex" v-show="active === '订阅制会员'" key="a">
           <div class="mr-16 w-[300px]">
             <div class="text-[22px] mb-5"><span class="text-yellow">订购权益</span>包括：</div>
             <div class="text-base *:flex *:items-center *:mb-8">
@@ -213,7 +219,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
           </div>
         </div>
         <!-- 贝壳充值 -->
-        <div class="relative" v-show="active === 'b'" key="b">
+        <div class="relative" v-show="active === '贝壳充值'" key="b">
           <div class="absolute translate-y-[-200%] text-lg mb-10">
             灵活充值，按需购买，让您的每一笔花费都物有所值
           </div>
@@ -325,6 +331,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
 </template>
 <style lang="less" scoped>
 .active {
+  @apply border;
   background: #fff;
   border-radius: 30px 30px 0 0;
   color: #000;

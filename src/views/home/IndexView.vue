@@ -1,15 +1,20 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import Buy from '@/components/buy/index.vue'
-const visibleBuy = ref(false)
+import NavIndex from '@/components/nav/nav-index.vue'
+import NavItem from '@/components/nav/nav-item.vue'
+import type { BuyType } from '@/types'
+
+const visibleBuy = ref(true)
+const buyType = ref<BuyType>('订阅制会员')
 const bannerRef = ref<HTMLDivElement>()
 const aboutRef = ref<HTMLDivElement>()
 const serveRef = ref<HTMLDivElement>()
 const buyRef = ref<HTMLDivElement>()
 const pageId = ref('banner')
 
-let lastSeen = null
-function highlightSection(section) {
+let lastSeen: Element
+function highlightSection(section: Element) {
   if (lastSeen) {
     lastSeen.classList.remove('highlighted')
   }
@@ -17,22 +22,26 @@ function highlightSection(section) {
   lastSeen.classList.add('highlighted')
   pageId.value = section.id
 }
-const scroll = (e) => {
+const scroll = () => {
   const sections = document.querySelectorAll('.page')
   for (var i = 0; i < sections.length; i++) {
     var section = sections[i]
     if (section.getBoundingClientRect().top >= section.clientHeight / -2) {
       highlightSection(section)
-      break // Stop checking after the first visible section
+      break
     }
   }
 }
-function go(dom) {
-  const _top = dom.getBoundingClientRect().top
-  const screenY = window.screenY
-  console.log(window.scrollY + _top)
+function go(dom: HTMLDivElement | undefined) {
+  const _top = dom?.getBoundingClientRect().top || 0
   window.scrollTo({ top: window.scrollY + _top, behavior: 'smooth' })
 }
+
+function openBuyDialog(params: BuyType) {
+  buyType.value = params
+  visibleBuy.value = true
+}
+
 onMounted(() => {
   window.addEventListener('scroll', scroll)
 })
@@ -41,12 +50,9 @@ onMounted(() => {
   <div class="min-w-[1200px]">
     <!-- 导航 -->
     <div class="max-w-page w-full fixed left-[50%] translate-x-[-50%] top-10 px-4">
-      <div
-        class="h-[70px] border border-black bg-white w-full rounded-full flex items-center justify-center shadow-[4px_5px_0px_0px_#121212]"
-      >
-        <div
-          class="text-[#c1c1c1] max-w-[1580px] h-[50px] p-[5px] leading-[40px] rounded-full bg-[#f1f1f1] flex gap-1 text-center *:transition-all *:w-[135px] *:cursor-pointer *:rounded-full hover:*:bg-[#b1dccc] hover:*:text-black"
-        >
+      <NavIndex>
+        <img src="@/assets/images/logo.svg" alt="" srcset="" class="absolute left-10 h-16" />
+        <NavItem>
           <span
             :class="pageId === 'banner' ? ' bg-[#b1dccc] text-black' : ''"
             @click="go(bannerRef)"
@@ -61,8 +67,8 @@ onMounted(() => {
           <span :class="pageId === 'buy' ? ' bg-[#b1dccc] text-black' : ''" @click="go(buyRef)"
             >订阅方案</span
           >
-        </div>
-      </div>
+        </NavItem>
+      </NavIndex>
     </div>
     <!-- 旋律生成 -->
     <div
@@ -238,6 +244,7 @@ onMounted(() => {
               <p class="text-[#798196] mb-6">新手尝鲜</p>
               <a
                 class="inline-block w-[150px] h-10 leading-10 rounded-full cursor-pointer text-white bg-theme group-hover/item:bg-yellow transition-all text-xs"
+                @click="openBuyDialog('订阅制会员')"
               >
                 订阅此计划
               </a>
@@ -297,6 +304,7 @@ onMounted(() => {
               <p class="text-theme mb-6">限时免费</p>
               <a
                 class="inline-block w-[150px] h-10 leading-10 rounded-full bg-theme group-hover/item:bg-yellow transition-all cursor-pointer text-white text-xs"
+                @click="openBuyDialog('订阅制会员')"
               >
                 订阅此计划
               </a>
@@ -360,6 +368,7 @@ onMounted(() => {
               <p class="text-theme mb-6">限时免费</p>
               <a
                 class="inline-block w-[150px] h-10 leading-10 rounded-full bg-theme group-hover/item:bg-yellow transition-all cursor-pointer text-white text-xs"
+                @click="openBuyDialog('订阅制会员')"
               >
                 订阅此计划
               </a>
@@ -432,6 +441,7 @@ onMounted(() => {
               <p class="text-theme mb-6">限时免费</p>
               <a
                 class="inline-block w-[150px] h-10 leading-10 rounded-full bg-theme group-hover/item:bg-yellow transition-all cursor-pointer text-white text-xs"
+                @click="openBuyDialog('订阅制会员')"
               >
                 订阅此计划
               </a>
@@ -535,7 +545,8 @@ onMounted(() => {
             <p class="text-yellow text-2xl font-bold mb-4">125.0</p>
             <p class="text-base">
               <a
-                class="inline-block w-[150px] h-10 leading-10 rounded-full bg-theme group-hover/item:bg-yellow transition-all cursor-pointer text-white text-xs"
+                class="inline-block w-[150px] h-10 leading-10 rounded-full bg-theme group-hover/item:bg-yellow transition-all cursor-pointer text-white text-xs hover:bg-yellow"
+                @click="openBuyDialog('贝壳充值')"
               >
                 充值虚拟币
               </a>
@@ -578,6 +589,6 @@ onMounted(() => {
 
       <span>© 2024 FloMuse. All rights reserved.</span>
     </div>
-    <Buy v-if="visibleBuy"></Buy>
+    <Buy v-if="visibleBuy" :buyType="buyType"></Buy>
   </div>
 </template>

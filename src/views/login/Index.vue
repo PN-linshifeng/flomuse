@@ -69,20 +69,22 @@ function handleInput(value) {
 </script>
 
 <template>
-  <div>
-    <header class="max-w-[1852] w-full h-[72px] px-4" style="margin-bottom: -72px">logo</header>
+  <div class="bg-[rgba(232,237,195,0.3)] bg-[url('@/assets/images/loginbg.png')] bg-contain">
+    <header class="max-w-[1852] w-full h-[72px] px-4" style="margin-bottom: -72px">
+      <router-link to="/"><img src="@/assets/images/logo.svg" alt="" srcset="" /></router-link>
+    </header>
     <div class="h-[100vh] w-[100vw] flex items-center max-w-[1200px]" style="margin: 0 auto">
       <main class="w-[434px] m-4">
         <div class="text-2xl mb-[60px]">
           <span
-            class="mr-[90px] cursor-pointer"
-            :class="loginPassword ? 'text-black' : 'text-[#a2a2a2]'"
+            class="mr-[90px] cursor-pointer tabs"
+            :class="loginPassword ? 'text-black active' : 'text-[#a2a2a2]'"
             @click="loginPassword = true"
             >密码登录</span
           >
           <span
-            class="cursor-pointer"
-            :class="!loginPassword ? 'text-black' : 'text-[#a2a2a2]'"
+            class="cursor-pointer tabs"
+            :class="!loginPassword ? 'text-black active' : 'text-[#a2a2a2]'"
             @click="loginPassword = false"
             >验证码登录</span
           >
@@ -103,7 +105,7 @@ function handleInput(value) {
               @input="handleInput"
             >
               <template #prefix>
-                <el-icon class="el-input__icon">XX</el-icon>
+                <img src="@/assets/images/phone-icon.svg" alt="" srcset="" />
               </template>
             </el-input>
           </el-form-item>
@@ -117,7 +119,7 @@ function handleInput(value) {
               show-password
             >
               <template #prefix>
-                <el-icon class="el-input__icon">XX</el-icon>
+                <img src="@/assets/images/lock-icon.svg" alt="" srcset="" />
               </template>
             </el-input>
           </el-form-item>
@@ -131,7 +133,7 @@ function handleInput(value) {
               show-password
             >
               <template #prefix>
-                <span>xx</span>
+                <img src="@/assets/images/code-icon.svg" alt="" srcset="" />
               </template>
               <template #suffix>
                 <span class="text-[#2563EB] cursor-pointer" @click="getCode">获取验证码</span>
@@ -167,5 +169,18 @@ function handleInput(value) {
   border-color: 1px solid #e2e8f0;
 }
 .submit {
+}
+.tabs.active {
+  position: relative;
+  &::after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    content: '';
+    height: 6px;
+    background: rgba(228, 117, 48, 0.8);
+    border-radius: 6px;
+  }
 }
 </style>

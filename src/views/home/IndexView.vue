@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import Buy from '@/components/buy/index.vue'
+import { useRouter } from 'vue-router'
 import NavIndex from '@/components/nav/nav-index.vue'
 import NavItem from '@/components/nav/nav-item.vue'
+import AppFooter from '@/components/footer/index.vue'
 import type { BuyType } from '@/types'
 
-const visibleBuy = ref(true)
-const buyType = ref<BuyType>('订阅制会员')
+const router = useRouter()
+
 const bannerRef = ref<HTMLDivElement>()
 const aboutRef = ref<HTMLDivElement>()
 const serveRef = ref<HTMLDivElement>()
@@ -38,8 +39,12 @@ function go(dom: HTMLDivElement | undefined) {
 }
 
 function openBuyDialog(params: BuyType) {
-  buyType.value = params
-  visibleBuy.value = true
+  router.push({
+    name: 'pay',
+    query: {
+      type: params
+    }
+  })
 }
 
 onMounted(() => {
@@ -81,10 +86,12 @@ onMounted(() => {
         AI旋律生成
       </div>
       <div>
-        <a
+        <a> </a>
+        <RouterLink
+          to="/login"
           class="inline-block w-[434px] h-[42px] leading-[42px] bg-[#F56E0D] text-white cursor-pointer rounded-xl"
-          >立即体验
-        </a>
+          >立即体验</RouterLink
+        >
       </div>
     </div>
 
@@ -555,40 +562,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-
-    <!-- 分享 -->
-    <div class="flex justify-center gap-14 py-16 text-base text-black">
-      <div class="flex items-center">
-        <img src="@/assets/images/douyin.svg" alt="" class="mr-2" />
-        抖音：@flomuse
-      </div>
-      <div class="flex items-center">
-        <img src="@/assets/images/weixin.svg" alt="" class="mr-2" />
-        公众号：复音flomuse
-      </div>
-      <div class="flex items-center">
-        <img src="@/assets/images/email.svg" alt="" class="mr-2" />
-        邮箱: general@flomuse.com
-      </div>
-    </div>
-
-    <!-- 链接 -->
-    <div class="text-base mb-11 text-center *:color-hui *:px-2">
-      <a href="">关于我们</a>
-      <span>|</span>
-      <a href="">服务条款</a>
-      <span>|</span>
-      <a href="">隐私政策</a>
-      <span>|</span>
-      <a href="">帮助中心</a>
-    </div>
-
-    <!-- copyright -->
-    <div class="text-xs py-4 text-center *:color-hui *:px-6 border-t">
-      <span>备案号: 京ICP备2024072531号</span>
-
-      <span>© 2024 FloMuse. All rights reserved.</span>
-    </div>
-    <Buy v-if="visibleBuy" :buyType="buyType"></Buy>
+    <AppFooter></AppFooter>
   </div>
 </template>

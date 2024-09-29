@@ -2,17 +2,15 @@
 import { ref } from 'vue'
 import type { BuyType } from '@/types'
 import PayCode from './code.vue'
-const props = defineProps<{ buyType: BuyType }>()
+const props = defineProps<{ buyType?: BuyType }>()
 const active = ref(props.buyType)
 const select = ref<'月' | '季' | '年'>('季')
 const beihe = ref<10 | 110 | 1100 | 11100>(1100)
 </script>
 <template>
-  <div
-    class="fixed z-50 left-[-1px] right-0 top-[-1px] w-[100vw] h-[100vh] overflow-hidden flex items-center justify-center"
-  >
+  <div class="overflow-hidden flex items-center justify-center py-8">
     <div
-      class="w-[1200px] rounded-[30px] bg-theme overflow-hidden shadow-2xl"
+      class="w-[1200px] rounded-[30px] bg-theme overflow-hidden shadow-[0_0px_30px_0px_rgba(0,0,0,0.3)]"
       style="background: linear-gradient(to bottom, #e1efc7, #818972)"
     >
       <header class="h-[100px] relative">

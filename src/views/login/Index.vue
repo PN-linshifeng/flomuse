@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const checkPhone = (rule: any, value: any, callback: any) => {
   if (value === '') {
@@ -55,6 +58,7 @@ const onSubmit = () => {
   if (!formEl.value) return
   formEl.value.validate((valid) => {
     if (valid) {
+      router.replace('/user')
       console.log('submit!')
     } else {
       console.log('error submit!')

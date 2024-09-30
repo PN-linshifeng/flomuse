@@ -56,7 +56,7 @@ const getCode = () => {
 // 登录
 const onSubmit = () => {
   if (!formEl.value) return
-  formEl.value.validate((valid) => {
+  formEl.value.validate((valid: boolean) => {
     if (valid) {
       router.replace('/user')
       console.log('submit!')
@@ -66,7 +66,7 @@ const onSubmit = () => {
   })
 }
 
-function handleInput(value) {
+function handleInput(value: string) {
   // 使用正则表达式限制输入的手机号格式
   form.phone = value.replace(/[^\d]/g, '')
 }
@@ -102,7 +102,7 @@ function handleInput(value) {
         >
           <el-form-item label="" prop="phone">
             <el-input
-              v-model.number="form.name"
+              v-model.number="form.phone"
               placeholder="请输入手机号码"
               size="large"
               class="h-[56px] rounded-3xl"

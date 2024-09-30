@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: '/pay',
       name: 'pay',
-      component: () => import('@/views/pay/Index.vue')
+      component: () => import('@/views/pay/index.vue')
     },
     {
       path: '/documents',

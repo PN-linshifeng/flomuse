@@ -6,12 +6,14 @@ import Card from '@/components/card/index.vue'
 import musicNav from './components/music-nav.vue'
 import shelfNav from './components/shelf-nav.vue'
 import musicBar from './components/music-bar.vue'
+import lineSpectrum from './components/line-spectrum.vue'
+import abc from './components/abc.vue'
 
 const route = useRoute()
 </script>
 <template>
   <div
-    class="w-[100vw] h-[100vh] overflow-hidden flex flex-col gap-5 bg-[#FEF8EF] bg-[url('@/assets/images/document-bg.png')] bg-contain p-8 pb-4"
+    class="w-[100vw] flex flex-col gap-5 bg-[#FEF8EF] bg-[url('@/assets/images/document-bg.png')] bg-contain p-8 pb-4"
   >
     <NavIndex class="!justify-start !items-conter">
       <!-- <img src="@/assets/images/logo.svg" alt="" srcset="" class="left-10 h-16 ml-5 mr-[120px]" /> -->
@@ -29,18 +31,17 @@ const route = useRoute()
       <musicBar></musicBar>
 
       <div class="flex-1 overflow-hidden flex gap-4 bg-[#E6E9ED]">
-        <div class="w-[360px] flex gap-4 flex-col *:flex-1 *:h-0 *:flex *:w-full justify-between">
+        <div class="w-[360px] flex gap-4 flex-col *:flex *:w-full j">
           <div>
-            <musicNav class="w-full"></musicNav>
+            <musicNav class="w-full h-[345px]"></musicNav>
           </div>
           <div>
-            <shelfNav class="w-full"></shelfNav>
+            <shelfNav class="w-full h-[400px]"></shelfNav>
           </div>
         </div>
-        <div class="flex-1 px-7 py-10 border border-black rounded-2xl bg-white">
-          <div class="overflow-auto h-full scroll-smooth">
-            <RouterView></RouterView>
-          </div>
+        <div class="flex-1">
+          <lineSpectrum class="mb-4"></lineSpectrum>
+          <abc></abc>
         </div>
       </div>
     </div>

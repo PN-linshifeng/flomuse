@@ -1,11 +1,26 @@
 <script lang="ts" setup>
-defineProps<{ title: string }>()
+defineProps<{ title: string; showClose?: boolean }>()
+
+const emit = defineEmits(['close'])
 </script>
 <template>
   <div class="flex flex-col bg-green rounded-2xl">
     <div class="h-7 leading-6 text-base overflow mb-[-1px]">
       <div class="active inline-block border-l border-t border-black bg-white px-6">
-        <div class="leading-7 font-bold">{{ title }}</div>
+        <div class="leading-7 font-bold flex items-center">
+          <span class="font-bold pt-1">
+            {{ title }}
+          </span>
+
+          <el-icon
+            v-if="showClose"
+            @click="emit('close')"
+            :size="20"
+            class="ml-8 relative z-10 mr-[-12px] cursor-pointer pt-1"
+          >
+            <Close />
+          </el-icon>
+        </div>
 
         <div class="right">
           <div class="tabs"></div>

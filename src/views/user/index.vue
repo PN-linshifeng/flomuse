@@ -1,15 +1,23 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { ElDialog } from 'element-plus'
 import NavIndex from '@/components/nav/nav-index.vue'
 import NavItem from '@/components/nav/nav-item.vue'
 import { useRoute } from 'vue-router'
-import Card from '@/components/card/index.vue'
 import musicNav from './components/music-nav.vue'
 import shelfNav from './components/shelf-nav.vue'
 import musicBar from './components/music-bar.vue'
 import lineSpectrum from './components/line-spectrum.vue'
 import abc from './components/abc.vue'
+import abcCodeDialog from './components/abc-code-dialog.vue'
 
 const route = useRoute()
+
+const abcDialogVisible = ref(true)
+
+function closeAbcDialogVisible() {
+  abcDialogVisible.value = false
+}
 </script>
 <template>
   <div
@@ -45,5 +53,15 @@ const route = useRoute()
         </div>
       </div>
     </div>
+
+    <!-- ABC代码生成 -->
+    <el-dialog
+      v-model="abcDialogVisible"
+      width="30%"
+      :show-close="false"
+      class="bg-transparent w-[1200px]"
+    >
+      <abcCodeDialog :close="closeAbcDialogVisible"></abcCodeDialog>
+    </el-dialog>
   </div>
 </template>

@@ -49,7 +49,7 @@ function play(index: number) {
             <img src="@/assets/images/play.svg" alt="" srcset="" />
           </span>
           <div
-            class="hidden group-[.active]:block absolute z-10 right-0 bottom-0 after:absolute after:right-0 after:bottom-0 after:w-0 after:h-0 after:border-theme after:border-[16px] after:z-10 after:border-[transparent_#479478_#479478_transparent]"
+            class="hidden group-[.active]:block absolute z-10 right-0 bottom-0 after:absolute after:right-0 after:bottom-0 after:w-0 after:h-0 after:border-theme after:border-[20px] after:z-10 after:!border-[transparent_#479478_#479478_transparent]"
           >
             <el-icon :size="14" class="absolute z-20 right-1 bottom-1 fill-white text-white">
               <Select />

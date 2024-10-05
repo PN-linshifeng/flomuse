@@ -2,34 +2,32 @@
 import { ref } from 'vue'
 import { ElForm, ElFormItem, ElButton, ElDialog } from 'element-plus'
 import Card from '@/components/card/index.vue'
+import { useAbcCodeStore } from '@/stores/abcCode'
 import createMusic from './create-music.vue'
 import SignatureDialog from './signature-dialog.vue'
 import low from '@/assets/images/yinpu-1.svg'
 import high from '@/assets/images/yinpu-3.svg'
 
+interface List {
+  name: string
+  id: string
+}
+
 defineProps<{
   close: () => void
 }>()
-const formData = ref({
-  name: '',
-  paihao: '',
-  tiaoshi: '',
-  zhuyin: '',
-  yinyu: ['', ''],
-  config: [
-    {
-      size: '',
-      weak: true
-    }
-  ],
-  base: [] as string[],
-  tongyinlianxian: false,
-  createBase: true
-})
+
+const abcCodeStore = useAbcCodeStore()
+
+const configData = ref<List[]>([
+  {
+    name: '我的配置-1',
+    id: 'rfgdg'
+  }
+])
 const visible = ref(false)
 const createMusicVisible = ref(false)
 const signatureDialogVisible = ref(false)
-const radio = ref('')
 
 const baseData = [
   {
@@ -53,16 +51,28 @@ function handleCreateMusic() {
 }
 // 基础配置
 function handleBase(name: string) {
-  const index = formData.value.base.findIndex((k) => k === name)
+  const index = abcCodeStore.formData.base.findIndex((k) => k === name)
   if (index >= 0) {
-    formData.value.base.splice(index, 1)
+    abcCodeStore.formData.base.splice(index, 1)
   } else {
-    formData.value.base.push(name)
+    abcCodeStore.formData.base.push(name)
   }
 }
 // getBaseImage
 function getBaseImage(name: string) {
   return baseData.find((k) => k.name === name)?.image
+}
+
+// 添加乐段配置
+function addConfig() {
+  abcCodeStore.formData.config.push({
+    size: 0,
+    weak: '是'
+  })
+}
+// 删除乐段配置、
+function delConfig(index: number) {
+  abcCodeStore.formData.config.splice(index, 1)
 }
 </script>
 <template>
@@ -72,33 +82,41 @@ function getBaseImage(name: string) {
         <h1 class="font-bold mb-4">旋律生成配置</h1>
         <ul class="max-h-96 overflow-auto pr-2">
           <li
-            v-for="k of 50"
-            :key="k"
+            v-for="k of abcCodeStore.configData"
+            :key="k.id"
             class="cursor-pointer leading-9 mb-1 rounded px-4 hover:bg-green-10 hover:shadow-[3px_0px_0px_0px_#B1DCCC]"
           >
-            <el-radio-group v-model="radio">
-              <el-radio :key="k" :value="k">新建配置1</el-radio>
+            <el-radio-group v-model="abcCodeStore.currId">
+              <el-radio :key="k.id" :value="k.id">{{ k.name }}</el-radio>
             </el-radio-group>
           </li>
         </ul>
         <div class="text-center pt-4">
-          <el-button round class="text-black">新建配置</el-button>
-          <el-button round class="text-black" disabled>删除配置</el-button>
+          <el-button round class="text-black" @click="abcCodeStore.createConfig()"
+            >新建配置</el-button
+          >
+          <el-button
+            round
+            class="text-black"
+            :disabled="abcCodeStore.currId.length === 0"
+            @click="abcCodeStore.delConfig()"
+            >删除配置</el-button
+          >
         </div>
       </div>
       <div class="flex-1">
-        <el-form :inline="true" :model="formData" class="demo-form-inline">
+        <el-form :inline="true" :model="abcCodeStore.formData" class="demo-form-inline">
           <div class="border-b leading-8 mb-4 font-bold">
             <span class="inline-block w-1 h-3 rounded bg-green"></span> 基本信息
           </div>
           <div>
             <el-form-item label="配置名称：">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="abcCodeStore.formData.name"></el-input>
             </el-form-item>
           </div>
           <div>
             <el-form-item label="排号：">
-              <el-select v-model="formData.x" placeholder="请选择" class="w-20">
+              <el-select v-model="abcCodeStore.formData.paihao" placeholder="请选择" class="w-20">
                 <el-option
                   v-for="item in ['1/2', '1/4', '1/8']"
                   :key="item"
@@ -110,13 +128,13 @@ function getBaseImage(name: string) {
             </el-form-item>
             <el-form-item label="调式：">
               <el-input
-                v-model="formData.name"
+                v-model="abcCodeStore.formData.tiaoshi"
                 class="w-20"
                 @click="signatureDialogVisible = true"
               ></el-input>
             </el-form-item>
             <el-form-item label="主音：">
-              <el-select v-model="formData.x" placeholder="请选择" class="w-20">
+              <el-select v-model="abcCodeStore.formData.zhuyin" placeholder="请选择" class="w-20">
                 <el-option
                   v-for="item in ['C', '1/4', '1/8']"
                   :key="item"
@@ -129,25 +147,29 @@ function getBaseImage(name: string) {
           </div>
           <div>
             <el-form-item label="音域：" class="!mr-3">
-              <el-input v-model="formData.name" class="w-20"></el-input>
+              <el-input v-model="abcCodeStore.formData.yinyu[0]" class="w-20"></el-input>
             </el-form-item>
             <el-form-item label="~">
-              <el-input v-model="formData.name" class="w-20"></el-input>
+              <el-input v-model="abcCodeStore.formData.yinyu[1]" class="w-20"></el-input>
             </el-form-item>
           </div>
           <!-- 乐段配置 -->
           <div class="border-b leading-8 mb-4 font-bold">
             <span class="inline-block w-1 h-3 rounded bg-green"></span> 乐段配置
           </div>
-          <div class="bg-[#F8F8F8] border border-[#e8e8e8] p-4 rounded-2xl">
-            <div>
-              <div class="font-bold mb-4">乐段1配置：</div>
+          <div class="bg-[#F8F8F8] border border-[#e8e8e8] px-4 rounded-2xl">
+            <div
+              v-for="(k, index) of abcCodeStore.formData.config"
+              :key="k.size + index"
+              class="py-4 border-b border-[#e8e8e8]"
+            >
+              <div class="font-bold mb-4">乐段{{ index + 1 }}配置：</div>
               <div>
                 <el-form-item label="小节数：" class="!mr-3">
-                  <el-input v-model="formData.name" class="w-20"></el-input>
+                  <el-input-number v-model="k.size" class="w-32"></el-input-number>
                 </el-form-item>
                 <el-form-item label="是否弱起：">
-                  <el-select v-model="formData.x" placeholder="请选择" class="w-20">
+                  <el-select v-model="k.weak" placeholder="请选择" class="w-20">
                     <el-option
                       v-for="item in ['是', '1/4', '1/8']"
                       :key="item"
@@ -159,11 +181,11 @@ function getBaseImage(name: string) {
                 </el-form-item>
               </div>
               <div>
-                <el-button class="text-black">删除乐段</el-button>
+                <el-button class="text-black" @click="delConfig(index)">删除乐段</el-button>
               </div>
             </div>
-            <div class="my-4 pt-4 border-t border-[#e8e8e8]">
-              <el-button class="text-black">添加乐段</el-button>
+            <div class="my-4">
+              <el-button class="text-black" @click="addConfig">添加乐段</el-button>
             </div>
           </div>
 
@@ -172,13 +194,17 @@ function getBaseImage(name: string) {
             <span class="inline-block w-1 h-3 rounded bg-green"></span> 节奏配置
           </div>
           <div class="flex gap-4">
-            <div class="text-center" v-for="(k, index) of formData.base" :key="k">
+            <div class="text-center" v-for="(k, index) of abcCodeStore.formData.base" :key="k">
               <div class="mb-1 h-12">
                 <img :src="getBaseImage(k)" alt="" srcset="" class="inline-block" />
               </div>
               <div>
                 <el-form-item label="" class="!mr-0">
-                  <el-select v-model="formData.base[index]" placeholder="请选择" class="w-16">
+                  <el-select
+                    v-model="abcCodeStore.formData.base[index]"
+                    placeholder="请选择"
+                    class="w-16"
+                  >
                     <el-option
                       v-for="item in baseData"
                       :key="item.name"
@@ -199,9 +225,13 @@ function getBaseImage(name: string) {
 
           <div>
             <el-form-item label="同音连线：">
-              <el-select v-model="formData.x" placeholder="请选择" class="w-20">
+              <el-select
+                v-model="abcCodeStore.formData.tongyinlianxian"
+                placeholder="请选择"
+                class="w-20"
+              >
                 <el-option
-                  v-for="item in ['C', '1/4', '1/8']"
+                  v-for="item in ['无', '1/4', '1/8']"
                   :key="item"
                   :label="item"
                   :value="item"
@@ -212,12 +242,17 @@ function getBaseImage(name: string) {
           </div>
           <div>
             <el-form-item label="生成设置：">
-              <el-switch v-model="formData.x" active-color="#13ce66" inactive-color="#ff4949">
+              <el-switch
+                v-model="abcCodeStore.formData.createBase"
+                active-color="#13ce66"
+                inactive-color="#ff4949"
+              >
               </el-switch>
             </el-form-item>
           </div>
           <div class="mt-4">
             <el-button
+              @click="abcCodeStore.submit()"
               class="w-[120px] text-white bg-theme border-0 hover:text-white hover:bg-theme"
               >保存配置</el-button
             >
@@ -238,7 +273,7 @@ function getBaseImage(name: string) {
             <div
               v-for="k in baseData"
               :key="k.name"
-              :class="formData.base.includes(k.name) ? '!border-theme' : ''"
+              :class="abcCodeStore.formData.base.includes(k.name) ? '!border-theme' : ''"
               @click="handleBase(k.name)"
               class="w-14 h-12 bg-[#EEEEEE] rounded flex items-center justify-center cursor-pointer border-[#EEEEEE] border-2"
             >
@@ -273,7 +308,11 @@ function getBaseImage(name: string) {
       width="30%"
       class="bg-transparent w-[716px]"
     >
-      <SignatureDialog :close="closeSignatureDialogVisible"></SignatureDialog>
+      <SignatureDialog
+        :close="closeSignatureDialogVisible"
+        :value="abcCodeStore.formData.tiaoshi"
+        @change="(val) => (abcCodeStore.formData.tiaoshi = val)"
+      ></SignatureDialog>
     </el-dialog>
   </Card>
 </template>

@@ -55,6 +55,7 @@ const getCode = () => {
 
 // 登录
 const onSubmit = () => {
+  router.replace('/user')
   if (!formEl.value) return
   formEl.value.validate((valid: boolean) => {
     if (valid) {

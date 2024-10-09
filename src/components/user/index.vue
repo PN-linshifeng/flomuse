@@ -13,7 +13,7 @@ const handleCommand = (command: string | number | object) => {
 }
 </script>
 <template>
-  <div class="h-[50px] py-1 px-4 bg-black rounded-full leading-[42px]">
+  <div class="h-[50px] py-1 px-4 bg-black rounded-full leading-0">
     <div v-if="userStore.isLogin">
       <img
         :src="userStore.user?.avatar"

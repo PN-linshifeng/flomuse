@@ -4,8 +4,11 @@ import { useRouter } from 'vue-router'
 import NavIndex from '@/components/nav/nav-index.vue'
 import NavItem from '@/components/nav/nav-item.vue'
 import AppFooter from '@/components/footer/index.vue'
+import User from '@/components/user/index.vue'
 import type { BuyType } from '@/types'
+import { useUserStore } from '@/stores/user'
 
+const userStore = useUserStore()
 const router = useRouter()
 
 const bannerRef = ref<HTMLDivElement>()
@@ -55,8 +58,8 @@ onMounted(() => {
   <div class="min-w-[1200px]">
     <!-- 导航 -->
     <div class="max-w-page w-full fixed left-[50%] translate-x-[-50%] top-10 px-4">
-      <NavIndex>
-        <img src="@/assets/images/logo.svg" alt="" srcset="" class="absolute left-10 h-16" />
+      <NavIndex class="justify-between">
+        <img src="@/assets/images/logo.svg" alt="" srcset="" class="left-10 h-16" />
         <NavItem>
           <span
             :class="pageId === 'banner' ? ' bg-[#b1dccc] text-black' : ''"
@@ -73,6 +76,7 @@ onMounted(() => {
             >订阅方案</span
           >
         </NavItem>
+        <User></User>
       </NavIndex>
     </div>
     <!-- 旋律生成 -->
@@ -88,7 +92,7 @@ onMounted(() => {
       <div>
         <a> </a>
         <RouterLink
-          to="/login"
+          :to="userStore.isLogin ? '/user' : '/login'"
           class="inline-block w-[434px] h-[42px] leading-[42px] bg-[#F56E0D] text-white cursor-pointer rounded-xl"
           >立即体验</RouterLink
         >

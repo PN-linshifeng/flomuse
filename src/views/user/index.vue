@@ -10,6 +10,7 @@ import musicBar from './components/music-bar.vue'
 import lineSpectrum from './components/line-spectrum.vue'
 import abc from './components/abc.vue'
 import abcCodeDialog from './components/abc-code-dialog.vue'
+import User from '@/components/user/index.vue'
 
 const route = useRoute()
 
@@ -23,7 +24,7 @@ function closeAbcDialogVisible() {
   <div
     class="w-[100vw] flex flex-col gap-5 bg-[#FEF8EF] bg-[url('@/assets/images/document-bg.png')] bg-contain p-8 pb-4"
   >
-    <NavIndex class="!justify-start !items-conter">
+    <NavIndex class="justify-between !items-conter">
       <!-- <img src="@/assets/images/logo.svg" alt="" srcset="" class="left-10 h-16 ml-5 mr-[120px]" /> -->
       <NavItem>
         <RouterLink to="?music" class="bg-[#b1dccc] text-black">生成旋律</RouterLink>
@@ -31,6 +32,7 @@ function closeAbcDialogVisible() {
         <RouterLink to="?serve">训练模式</RouterLink>
         <RouterLink to="?user">用户</RouterLink>
       </NavItem>
+      <User></User>
     </NavIndex>
 
     <div

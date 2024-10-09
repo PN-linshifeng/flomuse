@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 
+const userStore = useUserStore()
 const router = useRouter()
 
 const checkPhone = (rule: any, value: any, callback: any) => {
@@ -55,8 +57,10 @@ const getCode = () => {
 
 // 登录
 const onSubmit = () => {
-  router.replace('/user')
-  if (!formEl.value) return
+  userStore.login()
+  router.replace('/')
+  if (formEl.value) return
+
   formEl.value.validate((valid: boolean) => {
     if (valid) {
       router.replace('/user')
@@ -74,7 +78,9 @@ function handleInput(value: string) {
 </script>
 
 <template>
-  <div class="bg-[rgba(232,237,195,0.3)] bg-[url('@/assets/images/loginbg.png')] bg-contain">
+  <div
+    class="bg-[rgba(232,237,195,0.3)] bg-[url('@/assets/images/loginbg.png')] bg-contain min-h-[650px]"
+  >
     <header class="max-w-[1852] w-full h-[72px] px-4" style="margin-bottom: -72px">
       <router-link to="/"><img src="@/assets/images/logo.svg" alt="" srcset="" /></router-link>
     </header>

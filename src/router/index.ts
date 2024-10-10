@@ -30,9 +30,29 @@ const router = createRouter({
       component: () => import('@/views/documents/index.vue'),
       children: [
         {
-          path: 'user-agement',
-          name: 'userAgement',
-          component: () => import('@/views/documents/user-agement.vue')
+          path: 'user-agreement',
+          name: 'useragreement',
+          component: () => import('@/views/documents/user-agreement.vue')
+        },
+        {
+          path: 'privacy-agreement',
+          name: 'privacyagreement',
+          component: () => import('@/views/documents/privacy-agreement.vue')
+        },
+        {
+          path: 'children-privacy-agreement',
+          name: 'children-privacyagreement',
+          component: () => import('@/views/documents/children-privacy-agreement.vue')
+        },
+        {
+          path: 'service-agreement',
+          name: 'serviceagreement',
+          component: () => import('@/views/documents/service-agreement.vue')
+        },
+        {
+          path: 'artificial-intelligence-agreement',
+          name: 'artificial-intelligence-agreement',
+          component: () => import('@/views/documents/artificial-intelligence-agreement.vue')
         }
       ]
     },

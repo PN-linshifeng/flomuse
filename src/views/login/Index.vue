@@ -76,11 +76,9 @@ function handleInput(value: string) {
   form.phone = value.replace(/[^\d]/g, '')
 }
 </script>
-
 <template>
   <div
-    class="bg-[rgba(232,237,195,0.3)] bg-[url('@/assets/images/loginbg.png')] bg-contain min-h-[650px]"
-  >
+       class="bg-[rgba(232,237,195,0.3)] bg-[url('@/assets/images/loginbg.png')] bg-contain min-h-[650px]">
     <header class="max-w-[1852] w-full h-[72px] px-4" style="margin-bottom: -72px">
       <router-link to="/"><img src="@/assets/images/logo.svg" alt="" srcset="" /></router-link>
     </header>
@@ -88,61 +86,44 @@ function handleInput(value: string) {
       <main class="w-[434px] m-4">
         <div class="text-2xl mb-[60px]">
           <span
-            class="mr-[90px] cursor-pointer tabs"
-            :class="loginPassword ? 'text-black active' : 'text-[#a2a2a2]'"
-            @click="loginPassword = true"
-            >密码登录</span
-          >
+                class="mr-[90px] cursor-pointer tabs"
+                :class="loginPassword ? 'text-black active' : 'text-[#a2a2a2]'"
+                @click="loginPassword = true">密码登录</span>
           <span
-            class="cursor-pointer tabs"
-            :class="!loginPassword ? 'text-black active' : 'text-[#a2a2a2]'"
-            @click="loginPassword = false"
-            >验证码登录</span
-          >
+                class="cursor-pointer tabs"
+                :class="!loginPassword ? 'text-black active' : 'text-[#a2a2a2]'"
+                @click="loginPassword = false">验证码登录</span>
         </div>
         <el-form
-          ref="formEl"
-          :model="form"
-          :rules="rules"
-          label-width="auto"
-          style="max-width: 600px"
-        >
+                 ref="formEl"
+                 :model="form"
+                 :rules="rules"
+                 label-width="auto"
+                 style="max-width: 600px">
           <el-form-item label="" prop="phone">
             <el-input
-              v-model.number="form.phone"
-              placeholder="请输入手机号码"
-              size="large"
-              class="h-[56px] rounded-3xl"
-              @input="handleInput"
-            >
+                      v-model.number="form.phone"
+                      placeholder="请输入手机号码"
+                      size="large"
+                      class="h-[56px] rounded-3xl"
+                      @input="handleInput">
               <template #prefix>
                 <img src="@/assets/images/phone-icon.svg" alt="" srcset="" />
               </template>
             </el-input>
           </el-form-item>
           <el-form-item prop="password" label="" key="password" v-if="loginPassword">
-            <el-input
-              v-model="form.password"
-              placeholder="请输入密码"
-              size="large"
-              class="h-[56px] rounded-3xl"
-              type="password"
-              show-password
-            >
+            <el-input v-model="form.password" placeholder="请输入密码" size="large" class="h-[56px] rounded-3xl"
+                      type="password"
+                      show-password>
               <template #prefix>
                 <img src="@/assets/images/lock-icon.svg" alt="" srcset="" />
               </template>
             </el-input>
           </el-form-item>
           <el-form-item prop="code" label="" key="code" v-if="!loginPassword">
-            <el-input
-              v-model="form.code"
-              placeholder="请输入验证码"
-              size="large"
-              class="h-[56px] rounded-3xl"
-              type="password"
-              show-password
-            >
+            <el-input v-model="form.code" placeholder="请输入验证码" size="large" class="h-[56px] rounded-3xl" type="password"
+                      show-password>
               <template #prefix>
                 <img src="@/assets/images/code-icon.svg" alt="" srcset="" />
               </template>
@@ -152,37 +133,34 @@ function handleInput(value: string) {
             </el-input>
           </el-form-item>
           <el-form-item class="mt-[50px]">
-            <el-button
-              type="primary"
-              @click="onSubmit"
-              class="w-full !h-[60px] !text-xl !bg-[#E47531] !rounded-3xl !border-0"
-              >登录</el-button
-            >
+            <el-button type="primary" @click="onSubmit"
+                       class="w-full !h-[60px] !text-xl !bg-[#E47531] !rounded-3xl !border-0">登录</el-button>
           </el-form-item>
         </el-form>
-
         <div class="flex items-center mb-10">
           <el-checkbox v-model="checked" size="large" class="!mr-2" />
-          <p>同意并阅读《用户协议》和《隐私政策》</p>
+          <p> 同意并阅读 <router-link to="/documents/user-agreement">《用户协议》</router-link> 和 <router-link
+                         to="/documents/privacy-agreement">《隐私政策》</router-link>
+          </p>
         </div>
-        <div class="text-center">
-          还没有账号？<router-link to="/reg" class="text-[#2563EB]">立即注册</router-link>
+        <div class="text-center"> 还没有账号？<router-link to="/reg" class="text-[#2563EB]">立即注册</router-link>
         </div>
       </main>
     </div>
   </div>
 </template>
-
 <style lang="less" scoped>
 :deep(.el-input__wrapper) {
   border-radius: 20px;
   background: #e9ecd6;
   border-color: 1px solid #e2e8f0;
 }
-.submit {
-}
+
+.submit {}
+
 .tabs.active {
   position: relative;
+
   &::after {
     position: absolute;
     left: 0;

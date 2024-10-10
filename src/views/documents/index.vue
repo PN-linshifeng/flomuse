@@ -10,7 +10,10 @@ const route = useRoute()
     class="w-[100vw] h-[100vh] overflow-hidden flex flex-col gap-8 bg-[#FEF8EF] bg-[url('@/assets/images/document-bg.png')] bg-contain p-8 pb-4"
   >
     <NavIndex class="!justify-between !items-conter">
-      <img src="@/assets/images/logo.svg" alt="" srcset="" class="left-10 h-16 ml-5" />
+      <router-link to="/"
+        ><img src="@/assets/images/logo.svg" alt="" srcset="" class="left-10 h-16 ml-5"
+      /></router-link>
+
       <NavItem>
         <RouterLink to="/?banner" class="bg-[#b1dccc] text-black">旋律生成</RouterLink>
         <RouterLink to="/?about">关于我们</RouterLink>
@@ -26,23 +29,29 @@ const route = useRoute()
           class="*:my-3 *:flex *:items-center *:gap-2 [&_span]:size-2 [&_span]:rounded-full [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:text-[#a2a2a2]"
         >
           <li>
-            <RouterLink
-              to="/"
-              :class="route.fullPath === '/documents/user-agement' ? ' !text-black' : ''"
-            >
+            <RouterLink to="/documents/service-agreement">
               <span class="bg-[#B1DCCC]"></span> 复音科技网站服务协议
             </RouterLink>
           </li>
           <li>
-            <RouterLink to="/">
+            <RouterLink to="/documents/user-agreement">
               <span class="bg-[#B1DCCC]"></span> 复音科技用户服务协议
             </RouterLink>
           </li>
           <li>
-            <RouterLink to="/"> <span class="bg-[#B1DCCC]"></span> 复音科技隐私政策 </RouterLink>
+            <RouterLink to="/documents/privacy-agreement">
+              <span class="bg-[#B1DCCC]"></span> 复音科技隐私政策
+            </RouterLink>
           </li>
           <li>
-            <RouterLink to="/"> <span class="bg-[#B1DCCC]"></span> 儿童隐私保护声明 </RouterLink>
+            <RouterLink to="/documents/children-privacy-agreement">
+              <span class="bg-[#B1DCCC]"></span> 复音科技儿童隐私保护声明
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/documents/artificial-intelligence-agreement">
+              <span class="bg-[#B1DCCC]"></span> 复音科技生成式人工智能服务协议
+            </RouterLink>
           </li>
         </ul>
       </div>
@@ -54,3 +63,8 @@ const route = useRoute()
     </div>
   </div>
 </template>
+<style scoped lang="less">
+.router-link-active {
+  @apply !text-black;
+}
+</style>

@@ -38,7 +38,7 @@ const scroll = () => {
 }
 function go(dom: HTMLDivElement | undefined) {
   const _top = dom?.getBoundingClientRect().top || 0
-  window.scrollTo({ top: window.scrollY + _top, behavior: 'smooth' })
+  window.scrollTo({ top: window.scrollY + _top - 90, behavior: 'smooth' })
 }
 
 function openBuyDialog(params: BuyType) {
@@ -86,7 +86,7 @@ onMounted(() => {
       class="page w-full h-[100vh] flex items-center flex-col text-center justify-center bg-[#FEF8EF] bg-[url('@/assets/images/banner-bg.png')] bg-cover"
     >
       <div class="text-[32px] font-bold mb-[42px] text-theme leading-[60px]">
-        “探索音乐的无限可能，一键生成属于您的个性化视唱旋律！” <br />
+        探索音乐的无限可能，一键生成属于您的个性化视唱旋律！ <br />
         AI旋律生成
       </div>
       <div>

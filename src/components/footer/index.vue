@@ -18,13 +18,13 @@
 
     <!-- 链接 -->
     <div class="text-base mb-11 text-center *:color-hui *:px-2 text-[#7F8490]">
-      <a href="">关于我们</a>
+      <RouterLink to="?id=about">关于我们</RouterLink>
       <span>|</span>
-      <a href="">服务条款</a>
+      <RouterLink to="/documents/user-agreement">服务条款</RouterLink>
       <span>|</span>
-      <a href="">隐私政策</a>
+      <RouterLink to="/documents/privacy-agreement">隐私政策</RouterLink>
       <span>|</span>
-      <a href="">帮助中心</a>
+      <RouterLink to="/documents/help">帮助中心</RouterLink>
     </div>
 
     <!-- copyright -->

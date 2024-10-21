@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import NavIndex from '@/components/nav/nav-index.vue'
 import NavItem from '@/components/nav/nav-item.vue'
 import AppFooter from '@/components/footer/index.vue'
@@ -10,6 +10,7 @@ import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
 const router = useRouter()
+const route = useRoute()
 
 const bannerRef = ref<HTMLDivElement>()
 const aboutRef = ref<HTMLDivElement>()
@@ -50,8 +51,20 @@ function openBuyDialog(params: BuyType) {
   })
 }
 
+watch(
+  () => route.query.id,
+  () => {
+    setTimeout(() => {
+      go(document.getElementById(route.query.id))
+    }, 0)
+  }
+)
+
 onMounted(() => {
   window.addEventListener('scroll', scroll)
+  setTimeout(() => {
+    go(document.getElementById(route.query.id))
+  }, 0)
 })
 </script>
 <template>

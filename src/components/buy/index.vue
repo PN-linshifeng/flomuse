@@ -104,9 +104,9 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
                   v-show="select === '月'"
                   class="text-white !m-0 absolute left-[-1px] top-[-1px] translate-y-[-50%] h-8 w-[45%] rounded-full rounded-bl-[0px] text-sm leading-8 bg-gradient-to-r from-yellow to-[#FE8E3D]"
                 >
-                  最多选择
+                  尝鲜之选
                 </div>
-                <div>季度会员</div>
+                <div>月度会员</div>
                 <div>
                   <del>¥108/<span class="text-hui">月</span></del>
                 </div>
@@ -153,7 +153,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
                   v-show="select === '年'"
                   class="text-white !m-0 absolute left-[-1px] top-[-1px] translate-y-[-50%] h-8 w-[45%] rounded-full rounded-bl-[0px] text-sm leading-8 bg-gradient-to-r from-yellow to-[#FE8E3D]"
                 >
-                  最多选择
+                  最优惠
                 </div>
                 <div>年度会员</div>
                 <div>
@@ -253,6 +253,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
             >
               <div
                 v-show="beihe === 110"
+                v-if="false"
                 class="text-white !m-0 absolute left-[-1px] top-[-1px] translate-y-[-50%] h-8 w-[45%] rounded-full rounded-bl-[0px] text-sm leading-8 bg-gradient-to-r from-yellow to-[#FE8E3D]"
               >
                 最多选择
@@ -274,6 +275,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
             >
               <div
                 v-show="beihe === 1100"
+                v-if="false"
                 class="text-white !m-0 absolute left-[-1px] top-[-1px] translate-y-[-50%] h-8 w-[45%] rounded-full rounded-bl-[0px] text-sm leading-8 bg-gradient-to-r from-yellow to-[#FE8E3D]"
               >
                 最多选择
@@ -295,6 +297,7 @@ const beihe = ref<10 | 110 | 1100 | 11100>(1100)
             >
               <div
                 v-show="beihe === 11100"
+                v-if="false"
                 class="text-white !m-0 absolute left-[-1px] top-[-1px] translate-y-[-50%] h-8 w-[45%] rounded-full rounded-bl-[0px] text-sm leading-8 bg-gradient-to-r from-yellow to-[#FE8E3D]"
               >
                 最多选择

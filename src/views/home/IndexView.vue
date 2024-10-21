@@ -37,7 +37,10 @@ const scroll = () => {
     }
   }
 }
-function go(dom: HTMLDivElement | undefined) {
+function go(dom: HTMLElement | null | undefined) {
+  if (!dom) {
+    return
+  }
   const _top = dom?.getBoundingClientRect().top || 0
   window.scrollTo({ top: window.scrollY + _top - 90, behavior: 'smooth' })
 }
@@ -55,7 +58,7 @@ watch(
   () => route.query.id,
   () => {
     setTimeout(() => {
-      go(document.getElementById(route.query.id))
+      route.query.id && go(document.getElementById(route.query.id.toString()))
     }, 0)
   }
 )
@@ -63,7 +66,7 @@ watch(
 onMounted(() => {
   window.addEventListener('scroll', scroll)
   setTimeout(() => {
-    go(document.getElementById(route.query.id))
+    route.query.id && go(document.getElementById(route.query.id.toString()))
   }, 0)
 })
 </script>

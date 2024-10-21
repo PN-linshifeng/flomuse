@@ -1,0 +1,1 @@
+import{k as o,c as t,b as s,o as c}from"./index-C8sTYelB.js";const n={},r={class:"about"};function a(_,e){return c(),t("div",r,e[0]||(e[0]=[s("h1",null,"The",-1)]))}const d=o(n,[["render",a]]);export{d as default};
